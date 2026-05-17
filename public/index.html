@@ -1143,6 +1143,11 @@
       if (e.key === 'Enter') enviarEBaixar();
     });
 
+    // Enter no email dispara o botão
+    document.getElementById('f-email').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') enviarEBaixar();
+    });
+
     async function enviarEBaixar() {
       const nome = document.getElementById('f-nome').value.trim();
       const tel = document.getElementById('f-tel').value.trim();
@@ -1150,7 +1155,8 @@
       // Valida
       if (!nome) { document.getElementById('f-nome').classList.add('erro'); document.getElementById('f-nome').focus(); setTimeout(() => document.getElementById('f-nome').classList.remove('erro'), 600); return; }
       if (!tel || tel.replace(/\D/g, '').length < 10) { document.getElementById('f-tel').classList.add('erro'); document.getElementById('f-tel').focus(); setTimeout(() => document.getElementById('f-tel').classList.remove('erro'), 600); return; }
-
+      const email = document.getElementById('f-email').value.trim();
+      if (!email || !email.includes('@')) { document.getElementById('f-email').classList.add('erro'); document.getElementById('f-email').focus(); setTimeout(() => document.getElementById('f-email').classList.remove('erro'), 600); return; }
       const btn = document.getElementById('btn-baixar');
       btn.textContent = 'Salvando...';
       btn.disabled = true;
@@ -1169,6 +1175,7 @@
             nome: nome,
             telefone: tel.replace(/\D/g, ''),
             status: 'novo',
+            email: email,
             origem: 'Parque Ilha Bela',
             funil: 'guia-fgts',
             obs: 'Lead captado via Guia Prático FGTS'
